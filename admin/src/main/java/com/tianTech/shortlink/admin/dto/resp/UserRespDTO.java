@@ -7,6 +7,8 @@ package com.tianTech.shortlink.admin.dto.resp;
  */
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.tianTech.shortlink.admin.common.serializer.PhoneDesensitizationSerializer;
 import lombok.Data;
 
 /**
@@ -28,7 +30,7 @@ public class UserRespDTO {
      * 用户名
      */
     private String username;
-    
+
 
     /**
      * 真实姓名
@@ -38,6 +40,7 @@ public class UserRespDTO {
     /**
      * 手机号
      */
+    @JsonSerialize(using = PhoneDesensitizationSerializer.class)
     private String phone;
 
     /**
