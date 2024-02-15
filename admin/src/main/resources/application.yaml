@@ -13,3 +13,10 @@ spring:
       idle-timeout: 300000
       maximum-pool-size: 5
       minimum-idle: 5
+  data:
+    redis:
+      database: 1
+      password: root
+      #      username: root
+      host: 127.0.0.1
+      port: 16379
