@@ -10,7 +10,10 @@ package com.tianTech.shortlink.admin.controller;
 import com.tianTech.shortlink.admin.common.convention.errorcode.BaseErrorCode;
 import com.tianTech.shortlink.admin.common.convention.result.Result;
 import com.tianTech.shortlink.admin.common.convention.result.Results;
+import com.tianTech.shortlink.admin.dto.req.UserLoginReqDTO;
 import com.tianTech.shortlink.admin.dto.req.UserRegisterReqDTO;
+import com.tianTech.shortlink.admin.dto.req.UserUpdateReqDTO;
+import com.tianTech.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.tianTech.shortlink.admin.dto.resp.UserRespDTO;
 import com.tianTech.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -79,6 +82,39 @@ public class UserController {
     @PostMapping("/api/short-link/v1/user")
     public Result<Void> register(@RequestBody UserRegisterReqDTO requestParam) {
         userService.register(requestParam);
+        return Results.success();
+    }
+
+    @PutMapping("/api/short-link/v1/user")
+    public Result<Void> update(@RequestBody UserUpdateReqDTO userUpdateReqDTO) {
+        userService.update(userUpdateReqDTO);
+        return Results.success();
+    }
+
+    @PostMapping("/api/short-link/v1/user/login")
+    public Result<UserLoginRespDTO> login(@RequestBody UserLoginReqDTO requestParam) {
+        UserLoginRespDTO userLoginRespDTO = userService.login(requestParam);
+        return Results.success(userLoginRespDTO);
+    }
+
+    @GetMapping("/api/short-link/v1/user/check-login")
+    public Result<Boolean> checkLogin(@RequestParam("username") String username, @RequestParam("token") String token) {
+        Boolean is = userService.checkLogin(username, token);
+        return Results.success(is);
+    }
+
+
+    /**
+     * 用户退出登录
+     *
+     * @param username
+     * @param token
+     * @return
+     */
+    @DeleteMapping("/api/short-link/v1/user/check-login")
+    public Result<Void> logout(@RequestParam("username") String username, @RequestParam("token") String token) {
+
+        userService.logout(username, token);
         return Results.success();
     }
 

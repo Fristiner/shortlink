@@ -8,7 +8,10 @@ package com.tianTech.shortlink.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tianTech.shortlink.admin.dao.entity.UserDO;
+import com.tianTech.shortlink.admin.dto.req.UserLoginReqDTO;
 import com.tianTech.shortlink.admin.dto.req.UserRegisterReqDTO;
+import com.tianTech.shortlink.admin.dto.req.UserUpdateReqDTO;
+import com.tianTech.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.tianTech.shortlink.admin.dto.resp.UserRespDTO;
 
 public interface UserService extends IService<UserDO> {
@@ -33,4 +36,15 @@ public interface UserService extends IService<UserDO> {
      * @param requestParam 注册用户请求参数
      */
     void register(UserRegisterReqDTO requestParam);
+
+
+    void update(UserUpdateReqDTO requestParam);
+
+
+    UserLoginRespDTO login(UserLoginReqDTO requestParam);
+
+    Boolean checkLogin(String username, String token);
+
+
+    void logout(String username, String token);
 }
