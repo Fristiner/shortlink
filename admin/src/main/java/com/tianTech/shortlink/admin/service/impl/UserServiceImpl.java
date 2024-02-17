@@ -168,14 +168,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     /**
      * 检查用户是否登录
      *
-     * @param token
-     * @return
+     * @param token 用户token
+     * @return 用户是否登录
      */
     @Override
     public Boolean checkLogin(String username, String token) {
 //        return stringRedisTemplate.hasKey(token);
         String key = RedisCacheConstant.USER_LOGIN_USERNAME + username;
-        return stringRedisTemplate.opsForHash().get(username, token) != null;
+        return stringRedisTemplate.opsForHash().get(key, token) != null;
     }
 
     @Override
@@ -183,11 +183,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         // 删掉token数据
         String key = RedisCacheConstant.USER_LOGIN_USERNAME + username;
         // 验证是否登录
-        if (checkLogin(username,token)){
+        if (checkLogin(username, token)) {
             stringRedisTemplate.delete(key);
             return;
         }
-        throw new ClientException("用户Token不存在或未登录")
+        throw new ClientException("用户Token不存在或未登录");
 //        stringRedisTemplate
     }
 }

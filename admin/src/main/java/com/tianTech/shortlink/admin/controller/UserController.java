@@ -141,8 +141,6 @@ public class UserController {
         System.out.println(userRegisterCachePenetrationBloomFilter.contains("bob3"));
         System.out.println(userRegisterCachePenetrationBloomFilter.contains("bob4"));
         System.out.println(userRegisterCachePenetrationBloomFilter.contains("bob5"));
-
-
         System.out.println(userRegisterCachePenetrationBloomFilter.contains("tom1"));
         System.out.println(userRegisterCachePenetrationBloomFilter.contains("tom2"));
         System.out.println(userRegisterCachePenetrationBloomFilter.contains("tom3"));
