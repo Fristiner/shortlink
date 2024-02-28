@@ -9,6 +9,10 @@ package com.tianTech.shortlink.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tianTech.shortlink.admin.dao.entity.GroupDO;
+import com.tianTech.shortlink.admin.dto.req.ShortLinkGroupUpdateReqDTO;
+import com.tianTech.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
+
+import java.util.List;
 
 /**
  * {@code @projectName:}    shortlink
@@ -19,4 +23,14 @@ import com.tianTech.shortlink.admin.dao.entity.GroupDO;
  * {@code @description:}
  */
 public interface GroupService extends IService<GroupDO> {
+    void saveGroup(String groupName);
+
+
+    List<ShortLinkGroupRespDTO> listGroup();
+
+
+    void updateGroup(ShortLinkGroupUpdateReqDTO requestParam);
+
+
+    void deleteGroup(String gid);
 }

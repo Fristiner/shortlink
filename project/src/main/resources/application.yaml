@@ -1,2 +1,25 @@
 server:
-  port: 8001
+  port: 8003
+
+spring:
+  datasource:
+    #    username: root
+    #    password: root
+    #    url: jdbc:mysql://127.0.0.1:3306/link?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useSSL=false
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    hikari:
+    #      connection-test-query: select 1
+    #      connection-timeout: 20000
+    #      idle-timeout: 300000
+    #      maximum-pool-size: 5
+    #      minimum-idle: 5
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    # ShardingSphere 配置文件路径
+    url: jdbc:shardingsphere:classpath:shardingsphere-config.yaml
+  data:
+    redis:
+      database: 1
+      password: root
+      port: 6379
+      url: 127.0.0.1
+#      url: localhost:

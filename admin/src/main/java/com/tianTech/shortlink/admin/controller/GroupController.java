@@ -7,7 +7,16 @@ package com.tianTech.shortlink.admin.controller;
  */
 
 
-import org.springframework.web.bind.annotation.RestController;
+import com.tianTech.shortlink.admin.common.convention.result.Result;
+import com.tianTech.shortlink.admin.common.convention.result.Results;
+import com.tianTech.shortlink.admin.dto.req.ShortLinkGroupSaveReqDTO;
+import com.tianTech.shortlink.admin.dto.req.ShortLinkGroupUpdateReqDTO;
+import com.tianTech.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
+import com.tianTech.shortlink.admin.service.GroupService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * {@code @projectName:}    shortlink
@@ -18,6 +27,42 @@ import org.springframework.web.bind.annotation.RestController;
  * {@code @description:}
  */
 @RestController
+@RequiredArgsConstructor
 public class GroupController {
+
+    private final GroupService groupService;
+
+
+    @PostMapping("/api/short-link/v1/group")
+    public Result<Void> save(@RequestBody ShortLinkGroupSaveReqDTO shortLinkGroupSaveReqDTO) {
+        groupService.saveGroup(shortLinkGroupSaveReqDTO.getName());
+        return Results.success();
+    }
+
+    @GetMapping("/api/short-link/v1/group")
+    public Result<List<ShortLinkGroupRespDTO>> listGroup() {
+        List<ShortLinkGroupRespDTO> shortLinkGroupRespDTOS =
+                groupService.listGroup();
+        return Results.success(shortLinkGroupRespDTOS);
+    }
+
+    /**
+     * 修改短链接分组
+     *
+     * @param requestParam 请求参数
+     * @return void
+     */
+    @PutMapping("/api/short-link/v1/group")
+    public Result<Void> updateGroup(@RequestBody ShortLinkGroupUpdateReqDTO requestParam) {
+        groupService.updateGroup(requestParam);
+        return Results.success();
+    }
+
+    @DeleteMapping("/api/short-link/v1/group")
+    public Result<Void> deleteGroup(@RequestParam("gid") String gid) {
+        groupService.deleteGroup(gid);
+        return Results.success();
+    }
+
 
 }

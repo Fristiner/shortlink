@@ -32,6 +32,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -189,5 +191,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         }
         throw new ClientException("用户Token不存在或未登录");
 //        stringRedisTemplate
+    }
+
+    // 获取token
+    @Override
+    public String getToken(String username) {
+        String key = RedisCacheConstant.USER_LOGIN_USERNAME + username;
+        Boolean aBoolean = stringRedisTemplate.hasKey(key);
+        if (aBoolean != null && !aBoolean) {
+            // 有这个
+            throw new ClientException("用户未登录，没有token数据");
+        }
+//        stringRedisTemplate.opsForHash().get(key)
+        Map<Object, Object> entries = stringRedisTemplate.opsForHash().entries(key);
+        Iterator<Object> iterator = entries.keySet().iterator();
+        return (String) iterator.next();
     }
 }

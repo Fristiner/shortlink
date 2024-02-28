@@ -103,6 +103,18 @@ public class UserController {
         return Results.success(is);
     }
 
+    /**
+     * 根据用户名获取已经登录用户的token
+     *
+     * @param username
+     * @return
+     */
+    @GetMapping("/api/short-link/v1/user/getToken")
+    public Result<String> getToken(@RequestParam("username") String username) {
+        String token = userService.getToken(username);
+        return Results.success(token);
+    }
+
 
     /**
      * 用户退出登录
@@ -113,7 +125,6 @@ public class UserController {
      */
     @DeleteMapping("/api/short-link/v1/user/check-login")
     public Result<Void> logout(@RequestParam("username") String username, @RequestParam("token") String token) {
-
         userService.logout(username, token);
         return Results.success();
     }
@@ -134,8 +145,6 @@ public class UserController {
 
         userRegisterCachePenetrationBloomFilter.add("1");
         System.out.println("userRegisterCachePenetrationBloomFilter.contains(\"1\") = " + userRegisterCachePenetrationBloomFilter.contains("1"));
-
-
         System.out.println(userRegisterCachePenetrationBloomFilter.contains("bob1"));
         System.out.println(userRegisterCachePenetrationBloomFilter.contains("bob2"));
         System.out.println(userRegisterCachePenetrationBloomFilter.contains("bob3"));
